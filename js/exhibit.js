@@ -4,6 +4,13 @@
 
 (function ($) {
     Drupal.behaviors.bc_islandora_exhibit = {
+        set_firsts: function() {
+            $('.ex-obj').first().addClass('first');
+            $('.ex-images').first().addClass('first');
+            $('.ex-images').each(function() {
+                $(this).find('.large-image').first().addClass('first');
+            });
+        },
         // Show the exhibit's first slide.
         show_first: function ($selector) {
             $selector.each(function () {
@@ -89,8 +96,7 @@
         },
         attach: function (context, settings) {
             var self = this;
-            $('.ex-obj').first().addClass('first');
-            $('.ex-images').first().addClass('first');
+            self.set_firsts();
             $('.ex-images').each(function () {
                 self.show_first($(this).find('.large-image'));
             });

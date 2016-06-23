@@ -89,11 +89,11 @@
     <?php if (isset($exhibition)): ?>
       <?php print $exhibition; ?>
     <?php endif; ?>
+    <div id="ex-themes">
+      <?php print $objects['theme_output']; ?>
+    </div>
     <?php foreach ($objects as $i => $object): ?>
       <div class="ex-obj" id="slide<?php print $i+1; ?>" data-theme="<?php print $object['theme']; ?>" data-layout="<?php print $object['layout'];?>">
-        <div id="ex-themes">
-          <?php print $objects['theme_output']; ?>
-        </div>
         <div class="ex-images">
           <?php foreach ($object['images'] as $j => $img): ?>
             <?php // Large version of image, formatted using 'exhibit' image style. ?>
@@ -105,7 +105,7 @@
                   variable_get('file_public_path', conf_path() . '/files') . '/' . file_uri_target($img['uri']),
                   array(
                     'attributes' => array(
-                      'rel' => 'slide' . $i+1,
+                      'rel' => 'slide' . strval($i+1),
                       'class' => 'colorbox-load',
                       'title' => $img['caption'],
                     ),
@@ -129,23 +129,14 @@
                   ?>)
                 <?php endif; ?>
               </span>
-              <?php // Thumbnails. TODO add div container ?>
-              <?php if (count($object['images']) > 1 && $j): ?>
-                <?php print l(theme('image_style', array(
-                      'style_name' => 'thumbnail',
-                      'path' => $img['uri'],
-                      'attributes' => array('id' => $j+1),
-                    )),
-                    request_path(),
-                    array(
-                      'fragment' => 'page' . $j+1 . '#' . $j+1,
-                      'html' => TRUE,
-                    )
-                  );
-                ?>
-              <?php endif; ?>
             </div> <?php // .large-image ?>
           <?php endforeach; ?>
+          <?php // Thumbnails. ?>
+          <?php if (isset($object['thumbnail_output'])): ?>
+            <div class="ex-thumbnails">
+              <?php print $object['thumbnail_output']; ?>
+            </div>
+          <?php endif; ?>
       </div> <?php // .ex-images ?>
       <div class="ex-txt">
         <?php print $object['description']; ?>

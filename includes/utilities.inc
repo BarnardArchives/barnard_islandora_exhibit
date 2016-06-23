@@ -39,6 +39,18 @@ function _bc_islandora_prepare_exhibit_objects($node) {
         'caption' => $fc_entity[$fc_id]->field_caption[$node->language][0]['value'],
         'pid' => $fc_entity[$fc_id]->field_fedora_pid[$node->language][0]['value'],
       );
+      if (count($images) > 1 ) {
+        $objects[$i]['thumbnail_output'] .= l(theme('image_style', array(
+          'style_name' => 'thumbnail',
+          'path' => $objects[$i]['images'][$j]['uri'],
+          'attributes' => array('id' => 'tn' . strval($j+1)),
+        )),
+        request_path(),
+        array(
+          'fragment' => 'page' . strval($i+1) . '#tn' . strval($j+1),
+          'html' => TRUE,
+        ));
+      }
     }
   }
   return $objects;
