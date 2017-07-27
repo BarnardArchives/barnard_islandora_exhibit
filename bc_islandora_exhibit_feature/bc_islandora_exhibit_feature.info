@@ -1,3 +1,4 @@
+name = Barnard Islandora Exhibits Feature 
 core = 7.x
 package = Features
 dependencies[] = barnard_content_feature
