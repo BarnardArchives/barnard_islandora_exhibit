@@ -28,8 +28,8 @@
         },
         hide_slide: function ($slide) {
             $slide.hide().removeClass('active');
-            $slide.find('.large-image.active').hide().removeClass('active');
-            $slide.find('.ex-thumbnails img.active').removeClass('active');
+            $slide.find('.active').hide().removeClass('active');
+            // $slide.find('.ex-thumbnails img.active').removeClass('active');
         },
         toggle_slide: function ($from_slide, $to_slide) {
             var self = this;
@@ -41,7 +41,7 @@
         activate_theme: function (theme) {
             var $theme = $('#ex-themes .theme[data-theme="' + theme + '"]'),
                 $active_theme = $('#ex-themes .theme.active'),
-                active_theme = $active_theme.innerHTML;
+                active_theme = $active_theme.attr('data-theme');
             if (active_theme !== theme) {
                 $active_theme.removeClass('active');
                 $theme.addClass('active');
@@ -63,15 +63,19 @@
             var self = this;
             // Theme click.
             $('#ex-themes .theme').click(function () {
-                var theme = this.innerHTML,
+              // @string: theme is the TAB that was clicked.
+              // @obj: $theme_first is the requested jQuery object of `theme`
+              // @obj: $active_obj is the tab object? WHAT?
+              var theme = this.innerHTML,
                     $theme_first = $('.ex-obj[data-theme="' + theme + '"]:first'),
                     $active_obj = $('.ex-obj.active');
                 if (!$theme_first.hasClass('active')) {
                     self.toggle_slide($active_obj, $theme_first);
+                  self.activate_theme(theme); // added 9/12/2019 by br2490 - resolves sticky "theme" (tab) navigation. 
                 }
                 if (!$(this).hasClass('active')) {
                     $(this).parent().find('.active').removeClass('active');
-                    $(this).addClass('active');
+                    // $(this).addClass('active'); // Removed 9/12/19 by br2490 - extraneous.
                 }
             });
             // Thumbnail click.
