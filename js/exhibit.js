@@ -59,6 +59,9 @@
         page = parseInt(hash.split('#page-')[1], 10);
       self.pager_click(page, {}, self);
     },
+    hideCaptions: function() { // this function was added in 2019 to hide empty captions entirely. -br2490, 9/13/2019;
+      $('.caption').each( (k , v) => { const caption = $(v); if (!caption.text().trim().length) caption.hide(); });
+    },
     listeners: function () {
       var self = this;
       // Theme click.
@@ -120,6 +123,7 @@
       }
       self.activate_theme($('.ex-obj.active').attr('data-theme'));
       self.listeners();
+      self.hideCaptions();
     }
   };
 }(jQuery));
