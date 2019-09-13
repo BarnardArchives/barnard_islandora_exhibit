@@ -28,8 +28,8 @@
     },
     hide_slide: function ($slide) {
       $slide.hide().removeClass('active');
-      $slide.find('.active').hide().removeClass('active');
-      // $slide.find('.ex-thumbnails img.active').removeClass('active');
+      $slide.find('.large-image.active').hide().removeClass('active');
+      $slide.find('.ex-thumbnails img.active').removeClass('active');
     },
     toggle_slide: function ($from_slide, $to_slide) {
       var self = this;
@@ -41,7 +41,7 @@
     activate_theme: function (theme) {
       var $theme = $('#ex-themes .theme[data-theme="' + theme + '"]'),
         $active_theme = $('#ex-themes .theme.active'),
-        active_theme = $active_theme.attr('data-theme');
+        active_theme = $active_theme.innerHTML;
       if (active_theme !== theme) {
         $active_theme.removeClass('active');
         $theme.addClass('active');
@@ -75,7 +75,7 @@
         }
         if (!$(this).hasClass('active')) {
           $(this).parent().find('.active').removeClass('active');
-          // $(this).addClass('active'); // Removed 9/12/19 by br2490 - extraneous.
+          $(this).addClass('active');
         }
       });
       // Thumbnail click.
